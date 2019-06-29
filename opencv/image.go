@@ -14,7 +14,7 @@ var (
 )
 
 //ProcessImage process an image
-func ProcessImage() {
+func ProcessImage(filePath string) {
 	var img gocv.Mat
 	var trollface gocv.Mat
 	var classifier gocv.CascadeClassifier
@@ -34,14 +34,12 @@ func ProcessImage() {
 	fmt.Printf("found %d faces\n", len(rects))
 
 	for _, r := range rects {
-
 		size := r.Size()
 		gocv.Resize(trollface, &trollface, image.Point{size.X * 2, size.Y * 2}, 0, 0, gocv.InterpolationDefault)
 
 		renderImg(&img, trollface, img, image.Point{r.Min.X, r.Min.Y})
-
 	}
-	gocv.IMWrite("./img/out.jpg", img)
+	gocv.IMWrite(filePath, img)
 }
 
 func renderImg(imgdst *gocv.Mat, transImg, baseImg gocv.Mat, pt image.Point) {

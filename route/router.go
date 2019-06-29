@@ -11,7 +11,8 @@ func Init() *echo.Echo {
 	e := echo.New()
 
 	e.GET("/", api.Home)
-	e.POST("/image", api.UploadImage)
+	e.GET("/user", api.GetUserByID)
+	e.POST("/user/image", api.UploadImage)
 
 	return e
 }

@@ -1,11 +1,12 @@
 package main
 
 import (
-	"trollstagram-backend/opencv"
+	"trollstagram-backend/db"
+	"trollstagram-backend/route"
 )
 
 func main() {
-	//e := route.Init()
-	//e.Logger.Fatal(e.Start(":1323"))
-	opencv.ProcessImage()
+	db.Init()
+	e := route.Init()
+	e.Logger.Fatal(e.Start(":1323"))
 }

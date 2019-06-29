@@ -5,15 +5,26 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"time"
+	"trollstagram-backend/model"
+	"trollstagram-backend/opencv"
 
 	"github.com/labstack/echo"
 )
+
+//GetUserByID get specific user by id
+func GetUserByID(c echo.Context) error {
+	user, err := model.GetByID(1)
+	if err != nil {
+		return c.String(http.StatusNotFound, "user not found")
+	}
+	return c.JSON(http.StatusOK, user)
+}
 
 //UploadImage upload an image request
 func UploadImage(c echo.Context) error {
 
 	//Read file
-
 	file, err := c.FormFile("imageFile")
 	if err != nil {
 		return err
@@ -38,5 +49,16 @@ func UploadImage(c echo.Context) error {
 		return err
 	}
 
+	filePath := fmt.Sprintf("./img/storage/%s.jpg", time.Now().Format("20060102150405"))
+
+	model.AddFilePath(filePath)
+
+	opencv.ProcessImage(filePath)
+
 	return c.String(http.StatusOK, "upload success")
+}
+
+//GetImageLists get a list of all images
+func GetImageLists(c echo.Context) {
+
 }
