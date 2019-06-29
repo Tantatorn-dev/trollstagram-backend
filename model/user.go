@@ -15,15 +15,14 @@ type User struct {
 	Password string
 	Name     string
 	ImgPath  []string
-	Posts    int
 }
 
 //GetByID get user by id
 func GetByID(id int) (*User, error) {
 	user := new(User)
 
-	row := db.DB.QueryRow(`SELECT id,username,password,name,posts FROM usr WHERE id=$1`, id)
-	err := row.Scan(&user.ID, &user.Username, &user.Password, &user.Name, &user.Posts)
+	row := db.DB.QueryRow(`SELECT id,username,password,name FROM usr WHERE id=$1`, id)
+	err := row.Scan(&user.ID, &user.Username, &user.Password, &user.Name)
 	if err != nil {
 		fmt.Println(err)
 		return nil, err
