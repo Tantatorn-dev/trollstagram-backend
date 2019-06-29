@@ -38,6 +38,20 @@ func AddFilePath(filePath string) error {
 	return err
 }
 
+//CountPosts count a number of posts
+func CountPosts() int {
+	var count int
+	statement := "SELECT array_length(imgpath,1) FROM usr WHERE id=1"
+
+	row := db.DB.QueryRow(statement)
+
+	err := row.Scan(&count)
+	if err != nil {
+		return 0
+	}
+	return count
+}
+
 //GetFilePaths get every file paths
 func GetFilePaths() *[]string {
 	var str []string
