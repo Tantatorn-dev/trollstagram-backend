@@ -14,7 +14,7 @@ func Init() *echo.Echo {
 	e.GET("/user", api.GetUserByID)
 	e.GET("/user/posts", api.CountPosts)
 	e.GET("/user/image", api.GetImageLists)
-	/*e.GET("/user/image/:id", api.G)*/
+	e.GET("/user/image/:id", api.GetImage)
 	e.POST("/user/image", api.UploadImage)
 
 	return e
