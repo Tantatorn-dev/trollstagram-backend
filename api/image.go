@@ -27,7 +27,7 @@ func UploadImage(c echo.Context) error {
 	defer src.Close()
 
 	//Destination
-	dst, err := os.Create("./image/image.jpg")
+	dst, err := os.Create("./img/image.jpg")
 	if err != nil {
 		return err
 	}
