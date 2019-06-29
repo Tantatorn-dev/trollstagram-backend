@@ -5,7 +5,7 @@ import (
 	"io"
 	"net/http"
 	"os"
-	"time"
+	"strconv"
 	"trollstagram-backend/model"
 	"trollstagram-backend/opencv"
 
@@ -49,7 +49,7 @@ func UploadImage(c echo.Context) error {
 		return err
 	}
 
-	filePath := fmt.Sprintf("./img/storage/%s.jpg", time.Now().Format("20060102150405"))
+	filePath := fmt.Sprintf("./img/storage/%d.jpg", model.CountPosts()+1)
 
 	model.AddFilePath(filePath)
 
@@ -58,7 +58,20 @@ func UploadImage(c echo.Context) error {
 	return c.String(http.StatusOK, "upload success")
 }
 
+//CountPosts count all posts
+func CountPosts(c echo.Context) error {
+	return c.JSON(http.StatusOK, model.CountPosts())
+}
+
 //GetImageLists get a list of all images
 func GetImageLists(c echo.Context) error {
 	return c.JSON(http.StatusOK, model.GetFilePaths())
+}
+
+//GetImage get image file
+func GetImage(c echo.Context) error {
+	idStr := c.Param("id")
+	id, _ := strconv.Atoi(idStr)
+	filepath := fmt.Sprintf("./img/storage/%d.jpg", id)
+	return c.File(filepath)
 }
