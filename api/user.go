@@ -59,6 +59,6 @@ func UploadImage(c echo.Context) error {
 }
 
 //GetImageLists get a list of all images
-func GetImageLists(c echo.Context) {
-
+func GetImageLists(c echo.Context) error {
+	return c.JSON(http.StatusOK, model.GetFilePaths())
 }
