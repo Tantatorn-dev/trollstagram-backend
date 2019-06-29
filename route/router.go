@@ -9,6 +9,9 @@ import (
 //Init start
 func Init() *echo.Echo {
 	e := echo.New()
+
 	e.GET("/", api.Home)
+	e.POST("/image", api.UploadImage)
+
 	return e
 }

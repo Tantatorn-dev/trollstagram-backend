@@ -1,6 +1,8 @@
 package main
 
-import "trollstagram-backend/route"
+import (
+	"trollstagram-backend/route"
+)
 
 func main() {
 	e := route.Init()
