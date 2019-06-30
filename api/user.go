@@ -75,3 +75,12 @@ func GetImage(c echo.Context) error {
 	filepath := fmt.Sprintf("./img/storage/%d.jpg", id)
 	return c.File(filepath)
 }
+
+//DeleteImages delete all images
+func DeleteImages(c echo.Context) error {
+	err := model.DeleteImages()
+	if err != nil {
+		return c.String(http.StatusExpectationFailed, "failed")
+	}
+	return c.String(http.StatusOK, "deleted")
+}

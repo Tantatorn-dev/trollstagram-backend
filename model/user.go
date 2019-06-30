@@ -3,6 +3,7 @@ package model
 import (
 	"fmt"
 	"log"
+	"os"
 	"trollstagram-backend/db"
 
 	"github.com/lib/pq"
@@ -62,4 +63,13 @@ func GetFilePaths() *[]string {
 		log.Fatal(err)
 	}
 	return &str
+}
+
+//DeleteImages delete all images
+func DeleteImages() error {
+	statement := "UPDATE usr SET imgpath=ARRAY[]::TEXT[]"
+	os.RemoveAll("./img/storage/")
+	os.MkdirAll("./img/storage/", 0700)
+	_, err := db.DB.Exec(statement)
+	return err
 }
