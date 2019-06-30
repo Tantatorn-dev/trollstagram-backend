@@ -18,6 +18,7 @@ func Init() *echo.Echo {
 	e.GET("/user/image", api.GetImageLists)
 	e.GET("/user/image/:id", api.GetImage)
 	e.POST("/user/image", api.UploadImage)
+	e.DELETE("/user/image", api.DeleteImages)
 
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
 		AllowMethods: []string{http.MethodGet, http.MethodPut, http.MethodPost, http.MethodDelete},
